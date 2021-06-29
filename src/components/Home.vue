@@ -18,6 +18,7 @@
           active-text-color="#409eff"
           :collapse="isCollapse"
           :collapse-transition="false"
+          :default-active="activeNav"
           unique-opened
           router
         >
@@ -36,6 +37,7 @@
               :index="'/' + subItem.path"
               v-for="subItem in item.children"
               :key="subItem.id"
+              @click="saveActiveNav('/' + subItem.path)"
             >
               <i class="el-icon-menu"></i>
               <span>{{ subItem.authName }}</span>
@@ -53,6 +55,7 @@
 export default {
   created() {
     this.getMenuList()
+    this.activeNav = window.sessionStorage.getItem('activeNav')
   },
   data() {
     return {
@@ -65,6 +68,7 @@ export default {
         145: 'iconfont icon-baobiao',
       },
       isCollapse: false,
+      activeNav: ''
     }
   },
   methods: {
@@ -76,11 +80,14 @@ export default {
       const { data: res } = await this.$http.get('menus')
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menuList = res.data
-      console.log(res)
     },
     toggleCollapse() {
       this.isCollapse = !this.isCollapse
     },
+    saveActiveNav(activePath) {
+      window.sessionStorage.setItem('activeNav', activePath)
+      this.activeNav = activePath
+    }
   },
 }
 </script>

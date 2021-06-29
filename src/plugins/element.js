@@ -12,7 +12,17 @@ import {
   MenuItem,
   MenuItemGroup,
   Submenu,
-  Menu
+  Menu,
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  Row,
+  Col,
+  Table,
+  TableColumn,
+  Switch,
+  Pagination,
+  Dialog
 } from 'element-ui'
 
 Vue.use(Button)
@@ -27,4 +37,32 @@ Vue.use(MenuItemGroup)
 Vue.use(Submenu)
 Vue.use(Menu)
 Vue.use(Container)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Card)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Switch)
+Vue.use(Pagination)
+Vue.use(Dialog)
+
 Vue.prototype.$message = Message
+// const eleList = [Button,
+//   Form,
+//   FormItem,
+//   Input,
+//   Message,
+//   Header,
+//   Aside,
+//   Main,
+//   Container,
+//   MenuItem,
+//   MenuItemGroup,
+//   Submenu,
+//   Menu,
+//   Breadcrumb,
+//   BreadcrumbItem,
+//   Card
+// ]
