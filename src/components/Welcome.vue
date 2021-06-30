@@ -3,10 +3,7 @@
 </template>
 
 <script>
-export default {
-  data() {},
-  methods: {},
-}
+export default {}
 </script>
 
 <style lang="less" scoped>

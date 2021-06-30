@@ -22,7 +22,8 @@ import {
   TableColumn,
   Switch,
   Pagination,
-  Dialog
+  Dialog,
+  MessageBox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -49,20 +50,4 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 
 Vue.prototype.$message = Message
-// const eleList = [Button,
-//   Form,
-//   FormItem,
-//   Input,
-//   Message,
-//   Header,
-//   Aside,
-//   Main,
-//   Container,
-//   MenuItem,
-//   MenuItemGroup,
-//   Submenu,
-//   Menu,
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   Card
-// ]
+Vue.prototype.$confirm = MessageBox.confirm
