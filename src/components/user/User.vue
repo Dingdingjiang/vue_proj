@@ -60,6 +60,7 @@
               type="warning"
               icon="el-icon-setting"
               size="mini"
+              @click="showAllotRoleDialog(scope.row)"
             ></el-button>
           </template>
         </el-table-column>
@@ -137,6 +138,34 @@
         <el-button type="primary" @click="eidtUser">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 分配角色对话框 -->
+    <el-dialog
+      title="分配角色"
+      :visible.sync="allotRoleDialogVisible"
+      width="50%"
+      @close="handleAllotRoleDialogClose"
+    >
+      <div>
+        <p>当前的用户：{{ userInf.username }}</p>
+        <p>当前的角色：{{ userInf.role_name }}</p>
+        <p>
+          分配后的角色：
+          <el-select v-model="selectedRoleId" placeholder="请选择">
+            <el-option
+              v-for="item in rolesList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="allotRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="allotRoleById">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -164,6 +193,7 @@ export default {
     }
     return {
       userList: [],
+      userInf: {},
       queryInf: {
         query: '',
         pagenum: 1,
@@ -175,8 +205,10 @@ export default {
         email: '',
         mobile: '',
       },
+      defaultRightListProps: [],
       total: 0,
       addDialogVisible: false,
+      allotRoleDialogVisible: false,
       addUserFormRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -201,6 +233,8 @@ export default {
         ],
       },
       editDialogVisible: false,
+      rolesList: [],
+      selectedRoleId: '',
       editUserForm: {
         id: '',
         username: '',
@@ -227,6 +261,14 @@ export default {
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.userList = res.data.users
       this.total = res.data.total
+    },
+    //   获取角色列表函数
+    async getRolesList() {
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.erroe('获取角色列表失败！')
+      }
+      this.rolesList = res.data
     },
     handleSizeChange(newPagezise) {
       this.queryInf.pagesize = newPagezise
@@ -259,12 +301,12 @@ export default {
     },
     addUser() {
       this.$refs.addUserFormRef.validate(async (valid) => {
+        this.addDialogVisible = false
         if (!valid) return
         const { data: res } = await this.$http.post('users', this.addUserForm)
         if (res.meta.status !== 201) this.$message.error('添加用户失败！')
         this.getUserList()
         this.$message.success('添加用户失败！')
-        this.addDialogVisible = false
       })
     },
     // 删除用户图标
@@ -307,6 +349,25 @@ export default {
         this.editDialogVisible = false
       })
     },
+    showAllotRoleDialog(role) {
+      this.allotRoleDialogVisible = true
+      this.rolesList = this.getRolesList()
+      this.userInf = role
+      console.log(role)
+    },
+    async allotRoleById() {
+      this.allotRoleDialogVisible = false
+      const { data: res } = await this.$http.put(
+        `users/${this.userInf.id}/role`,
+        { rid: this.selectedRoleId }
+      )
+      if (res.meta.status !== 200) return this.$message.error('添加角色失败！')
+      this.getUserList()
+      this.$message.success('添加角色成功！')
+    },
+    handleAllotRoleDialogClose() {
+      this.selectedRoleId = ''
+    }
   },
 }
 </script>
