@@ -14,3 +14,11 @@ html, body, #app {
 .mg-b-15{
     margin-bottom: 15px;
 }
+
+.mg-l-10{
+    margin-left: 10px;
+}
+
+.el-cascader-menu {
+    height: 300px;
+  }

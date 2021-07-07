@@ -8,11 +8,9 @@
     <el-card>
       <el-table :data="rightsTableData" border style="width: 100%">
         <el-table-column label="#" type="index"> </el-table-column>
-        <el-table-column prop="authName" label="权限名称" width="180">
-        </el-table-column>
-        <el-table-column prop="path" label="路径" width="180">
-        </el-table-column>
-        <el-table-column prop="level" label="权限等级" width="180">
+        <el-table-column prop="authName" label="权限名称"> </el-table-column>
+        <el-table-column prop="path" label="路径"> </el-table-column>
+        <el-table-column prop="level" label="权限等级">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.level === '0'">一级</el-tag>
             <el-tag v-else-if="scope.row.level === '1'" type="success"
