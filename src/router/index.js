@@ -9,6 +9,7 @@ import Roles from '../components/power/Roles.vue'
 import Goods from '../components/goods/Goods.vue'
 import Categories from '../components/goods/Categories.vue'
 import Params from '../components/goods/Params.vue'
+import AddGoodsForm from '../components/goods/AddGoodForm.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +27,8 @@ const routes = [
       { path: '/goods', component: Goods },
       { path: '/categories', component: Categories },
       { path: '/params', component: Params },
+      { path: '/goods/add', component: AddGoodsForm },
+
     ]
   }
 
@@ -34,7 +37,7 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
+// 路由守卫
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   const tokenstr = window.sessionStorage.getItem('token')

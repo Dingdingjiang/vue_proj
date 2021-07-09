@@ -169,7 +169,6 @@ export default {
     },
     handleSizeChange(newsize) {
       this.queryInf.pagesize = newsize
-      this.queryInf.pagenum = 1
       this.getCateList()
     },
     handleCurrentChange(newpage) {

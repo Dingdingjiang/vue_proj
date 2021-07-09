@@ -21,9 +21,9 @@
       <el-row>
         <span>选择商品分类：</span>
         <el-cascader
-          v-model="selectedParams"
-          :options="paramsList"
-          :props="paramsProps"
+          v-model="selectedCates"
+          :options="catesList"
+          :props="catesProps"
           @change="getParamsTableData"
         ></el-cascader>
       </el-row>
@@ -221,14 +221,14 @@ export default {
   },
   data() {
     return {
-      selectedParams: [],
-      paramsList: [],
+      selectedCates: [],
+      catesList: [],
       paramsTableData: [],
       activeName: 'many',
       addParamsDialogVisible: false,
       tagInputVisible: false,
       tagInputValue: '',
-      paramsProps: {
+      catesProps: {
         value: 'cat_id',
         label: 'cat_name',
         children: 'children',
@@ -256,7 +256,7 @@ export default {
   computed: {
     // 控制添加属性按钮是否可用
     isBtnDisabled() {
-      if (this.selectedParams.length !== 3) {
+      if (this.selectedCates.length !== 3) {
         return true
       }
       return false
@@ -271,14 +271,14 @@ export default {
     },
     // 返回被选中的分类ID
     getSelectedID() {
-      return this.selectedParams[this.selectedParams.length - 1]
+      return this.selectedCates[this.selectedCates.length - 1]
     },
   },
   methods: {
     // 获取分类列表
     async getCateList() {
       const { data: res } = await this.$http.get('categories')
-      this.paramsList = res.data
+      this.catesList = res.data
     },
     // 获取参数及属性列表
     async getParamsTableData() {
