@@ -116,6 +116,7 @@ export default {
     },
   },
   computed: {
+    // 时间转换
     dateFormat() {
       return function (originVal) {
         const dt = new Date(originVal)
